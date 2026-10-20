@@ -2,9 +2,9 @@
 **/obj/
 .vs/
 .dotnet/
+.nuget/
 .keys/
 CollectionManager.Api/wwwroot/uploads/
 CollectionManager.Api/appsettings.json
 *.user
 *.suo
-

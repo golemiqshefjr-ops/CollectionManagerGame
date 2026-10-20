@@ -271,4 +271,3 @@
   $('#formDialog').addEventListener('close',()=>clearInterval(conversationTimer));
   start();
 })();
-

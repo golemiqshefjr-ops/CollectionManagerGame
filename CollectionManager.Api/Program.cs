@@ -6,7 +6,7 @@ using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.DataProtection;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddSingleton<SqlConnectionFactory>();
+builder.Services.AddSingleton<PostgresConnectionFactory>();
 builder.Services.AddSingleton<TokenService>();
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<CollectionService>();
@@ -40,6 +40,13 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 var app = builder.Build();
+
+if (!string.IsNullOrWhiteSpace(builder.Configuration.GetConnectionString("CollectionDb")))
+{
+    await using var scope = app.Services.CreateAsyncScope();
+    var database = scope.ServiceProvider.GetRequiredService<PostgresConnectionFactory>();
+    await DatabaseInitializer.InitializeAsync(database);
+}
 app.Use(async (context, next) =>
 {
     try { await next(); }
@@ -140,4 +147,3 @@ app.MapFallbackToFile("index.html");
 app.Run();
 
 public partial class Program { }
-

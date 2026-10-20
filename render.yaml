@@ -12,7 +12,15 @@ services:
       - key: ASPNETCORE_ENVIRONMENT
         value: Production
       - key: ConnectionStrings__CollectionDb
-        sync: false
+        fromDatabase:
+          name: collection-manager-db
+          property: connectionString
       - key: Jwt__SigningKey
         generateValue: true
 
+databases:
+  - name: collection-manager-db
+    databaseName: collection_manager
+    user: collection_manager
+    plan: free
+    region: frankfurt
