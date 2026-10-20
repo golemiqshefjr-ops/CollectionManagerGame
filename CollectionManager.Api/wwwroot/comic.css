@@ -221,6 +221,7 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .button, .item-card, .mascot-button::after, .nav-link, .dossier-item { transition: none !important; }
+  .password-toggle { transition: none; }
   .toast.show { animation: none; }
   .button:hover, .button:active, .item-card:hover, .nav-link:hover, .dossier-item:hover { transform: none; }
 }
@@ -245,6 +246,12 @@
 .notification-actions .button { padding: 8px 10px; font-size: 9px; }
 .notification-empty { border: 1px solid #47484d; background: #1a1b1f; }
 .notification-empty p { color: #d2d0ca; }
+.password-field { position: relative; display: flex; align-items: center; width: 100%; }
+.password-field > input { width: 100%; padding-right: 48px !important; }
+.password-toggle { position: absolute; top: 50%; right: 7px; display: grid; width: 34px; height: 34px; padding: 0; place-items: center; transform: translateY(-50%); border: 0; border-radius: 50%; background: transparent; color: #5d5e62; cursor: pointer; transition: color .15s ease, background .15s ease; }
+.password-toggle:hover { color: #17181b; background: #ffd43b55; }
+.password-toggle:focus-visible { outline: 2px solid var(--comic-ink); outline-offset: 2px; box-shadow: 0 0 0 4px var(--comic-yellow); }
+.password-toggle svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 @media (max-width: 760px) {
   .notification-row { grid-template-columns: 10px minmax(0,1fr); align-items: start; }
   .notification-actions { grid-column: 2; justify-content: flex-start; }
