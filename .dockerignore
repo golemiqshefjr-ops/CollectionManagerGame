@@ -1,0 +1,9 @@
+**/bin/
+**/obj/
+**/.vs/
+.git/
+.dotnet/
+**/.keys/
+CollectionManager.Api/appsettings*.json
+CollectionManager.Api/wwwroot/uploads/
+

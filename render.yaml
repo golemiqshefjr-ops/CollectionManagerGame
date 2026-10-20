@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: kolekcionerski-svyat
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    plan: free
+    region: frankfurt
+    healthCheckPath: /
+    autoDeploy: true
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: ConnectionStrings__CollectionDb
+        sync: false
+      - key: Jwt__SigningKey
+        generateValue: true
+

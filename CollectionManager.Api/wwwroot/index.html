@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="bg">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111214"><title>Колекционерски свят — място за всяка колекция</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Onest:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css"><link rel="stylesheet" href="/theme.css"><link rel="stylesheet" href="/redesign.css"><link rel="stylesheet" href="/comic.css">
+</head>
+<body>
+  <div class="grain"></div>
+  <header class="topbar">
+    <a class="brand" href="#"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M20 4 35 20 20 36 5 20 20 4Z"/><path d="M20 4v32M5 20h30M12 12l16 16m0-16L12 28"/></svg></span><span>КОЛЕКЦИОНЕРСКИ СВЯТ<span class="brand-dot">.</span></span></a>
+    <nav id="mainNav" class="main-nav" hidden>
+      <button class="nav-link active" data-view="market">Табло</button>
+      <button class="nav-link" data-view="auctions" id="auctionsNav">Аукциони</button>
+      <button class="nav-link" data-view="mine">Моята колекция</button>
+      <button class="nav-link" data-view="dossier" id="dossierNav">Досие</button>
+      <button class="nav-link" data-view="trades">Размени <span id="tradeBadge" class="badge-count" hidden></span></button>
+      <button class="nav-link notification-nav" data-view="notifications" id="notificationsNav" aria-label="Известия" title="Известия"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg><span>Известия</span><span id="notificationBadge" class="badge-count" hidden></span></button>
+      <button class="nav-link" data-view="messages">Съобщения</button>
+      <button class="nav-link" data-view="profile">Моят профил</button>
+      <button class="nav-link" data-view="admin" id="adminNav" hidden>Управление</button>
+      <button class="nav-link" data-view="review" id="reviewNav" hidden>За оценка</button>
+    </nav>
+    <div id="userMenu" class="user-menu" hidden><span class="user-avatar" id="userAvatar">Б</span><span class="user-name" id="userName"></span><button class="icon-button" id="logoutButton" title="Изход" aria-label="Изход">↗</button></div>
+  </header>
+
+  <main id="authView" class="auth-layout">
+    <section class="auth-story">
+      <h1>Всяка находка<br>има <em>своя история.</em></h1>
+      <p>Пази колекцията си подредена. Откривай редки предмети. Разменяй с хора, които разбират стойността им.</p>
+    </section>
+    <section class="auth-card">
+      <div class="auth-tabs"><button class="auth-tab selected" data-auth="login">Вход</button><button class="auth-tab" data-auth="register">Регистрация</button></div>
+      <h2 id="authTitle">Радваме се, че се върна.</h2><p class="muted" id="authSubtitle">Влез в пространството на колекционерите.</p>
+      <form id="authForm" class="form-stack">
+        <label id="nameField" hidden>Как да те наричаме<input name="displayName" autocomplete="name" maxlength="80" placeholder="Име или псевдоним"></label>
+        <label>Имейл адрес<input name="email" type="email" autocomplete="email" required placeholder="boris@example.com"></label>
+        <label>Парола<input name="password" type="password" autocomplete="current-password" required minlength="10" placeholder="Минимум 10 знака"></label>
+        <label id="roleField" hidden>Регистрация като<select name="role"><option value="Collector">Колекционер</option><option value="Evaluator">Оценител</option></select></label>
+        <button class="button primary wide" type="submit" id="authSubmit">Влез в профила <span>→</span></button>
+      </form>
+      <div class="demo-login"><span class="demo-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5.5c2.9-.8 5.6-.3 8 1.2v12c-2.4-1.5-5.1-2-8-1.2zM20 5.5c-2.9-.8-5.6-.3-8 1.2v12c2.4-1.5 5.1-2 8-1.2z"/><path d="M12 6.7v12"/></svg></span><div><b>Разглеждаш за първи път?</b><p>Демо достъпът е описан в README.md.</p></div></div>
+    </section>
+  </main>
+
+  <main id="appView" class="app-layout" hidden>
+    <section class="welcome-row">
+      <div><span class="eyebrow" id="pageEyebrow"><i></i> ДИГИТАЛЕН КОЛЕКЦИОНЕРСКИ КЛУБ</span><h1 id="pageTitle">Не просто вещи.<br><em>Малки открития.</em></h1><p id="pageIntro">Намери следващото попълнение за своята колекция.</p></div>
+      <div class="welcome-actions"><button id="newItemButton" class="button primary">＋ Добави предмет</button><div class="mini-stat"><span>В общността</span><b id="communityCount">—</b><small>колекционерски находки</small></div></div>
+    </section>
+    <section id="adminSummary" class="summary-grid" hidden></section>
+    <section id="dashboardSummary" class="summary-grid dashboard-stats" hidden></section>
+    <section class="filter-bar" id="filterBar">
+      <label class="search-box"><span>⌕</span><input id="searchInput" placeholder="Търси находка или категория…"><kbd>↵</kbd></label>
+      <label class="filter-select"><span>Категория</span><select id="categoryFilter"><option value="">Всички категории</option></select></label>
+      <label class="filter-select"><span>Състояние</span><select id="statusFilter"><option value="">Всички</option><option value="InCollection">В колекция</option><option value="ForTrade">За размяна</option><option value="OnAuction">На търг</option><option value="Sold">Продадени</option></select></label>
+      <span id="resultCount" class="result-count"></span>
+    </section>
+    <section id="content" class="content-grid" aria-live="polite"></section>
+  </main>
+
+  <dialog id="itemDialog" class="dialog"><button class="dialog-close" data-close aria-label="Затвори">×</button><div id="dialogContent"></div></dialog>
+  <dialog id="formDialog" class="dialog small-dialog"><button class="dialog-close" data-close aria-label="Затвори">×</button><div id="formContent"></div></dialog>
+  <div id="toast" class="toast" role="status"></div>
+  <aside class="mascot-widget" id="mascotWidget" aria-label="Кликс — уличен ракун колекционер">
+    <div id="mascotMessage" class="mascot-message" aria-hidden="true"><b>Рядка находка? Остави я на мен.</b><span>Кликс винаги забелязва най-интересните попълнения.</span><button id="mascotPickerToggle" class="mascot-change" type="button">Смени стила ✦</button></div>
+    <section id="mascotPicker" class="mascot-picker" aria-label="Стил на Кликс" hidden><header><b>Избери стил на Кликс</b><button id="mascotPickerClose" type="button" aria-label="Затвори избора">×</button></header><div id="mascotOptions" class="mascot-options"></div></section>
+    <button id="mascotButton" class="mascot-button" type="button" aria-label="Отвори съобщението от талисмана" aria-expanded="false">
+      <span id="mascotArt" class="mascot-art" role="img" aria-label="Фигурка талисман"></span>
+      <span class="mascot-caption" id="mascotCaption">Кликс · колекционер</span>
+    </button>
+  </aside>
+  <footer><span>КОЛЕКЦИОНЕРСКИ СВЯТ. <i>Място за всяка колекция.</i></span><span>УЧЕБЕН ПРОЕКТ · 12. КЛАС</span></footer>
+  <script src="/api.js"></script><script src="/app.js"></script>
+</body>
+</html>
+
