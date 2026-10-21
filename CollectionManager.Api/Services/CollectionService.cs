@@ -15,7 +15,8 @@ public sealed class CollectionService(PostgresConnectionFactory factory, Notific
         if (role == "Collector") sql += " AND (i.Status<>'PendingApproval' OR i.OwnerId=@viewer)";
         sql += " ORDER BY i.CreatedAt DESC";
         await using var cmd = new NpgsqlCommand(sql, db);
-        cmd.Parameters.AddWithValue("@status", (object?)status ?? DBNull.Value); cmd.Parameters.AddWithValue("@category", (object?)categoryId ?? DBNull.Value);
+        cmd.Parameters.Add("@status", NpgsqlDbType.Text).Value = (object?)status ?? DBNull.Value;
+        cmd.Parameters.Add("@category", NpgsqlDbType.Integer).Value = (object?)categoryId ?? DBNull.Value;
         cmd.Parameters.AddWithValue("@like", $"%{search}%");
         if (role == "Collector") cmd.Parameters.AddWithValue("@viewer", user.UserId());
         var rows = new List<ItemDto>(); await using var r = await cmd.ExecuteReaderAsync();
