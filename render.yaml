@@ -12,9 +12,7 @@ services:
       - key: ASPNETCORE_ENVIRONMENT
         value: Production
       - key: ConnectionStrings__CollectionDb
-        fromDatabase:
-          name: collection-manager-db
-          property: connectionString
+        sync: false
       - key: Jwt__SigningKey
         generateValue: true
 
