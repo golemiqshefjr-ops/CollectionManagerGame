@@ -15,6 +15,6 @@ WORKDIR /app
 COPY --from=build /app/publish .
 
 ENV ASPNETCORE_ENVIRONMENT=Production
-EXPOSE 10000
-ENTRYPOINT ["sh", "-c", "dotnet CollectionManager.Api.dll --urls http://0.0.0.0:${PORT:-10000}"]
+EXPOSE 8080
+ENTRYPOINT ["sh", "-c", "dotnet CollectionManager.Api.dll --urls http://0.0.0.0:${PORT:-8080}"]
 
