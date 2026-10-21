@@ -1,6 +1,7 @@
 using System.Security.Claims;
 using CollectionManager.Api.Data;
 using Npgsql;
+using NpgsqlTypes;
 
 namespace CollectionManager.Api.Services;
 
@@ -123,3 +124,4 @@ public sealed class CollectionService(PostgresConnectionFactory factory, Notific
     private static void Validate(ItemInput x) { if (x.Name.Trim().Length is < 2 or > 120 || x.CategoryId < 1) throw ServiceHelpers.BadRequest("Името или категорията са невалидни."); }
     private static void AddItemParams(NpgsqlCommand c, ItemInput x, int uid) { c.Parameters.AddWithValue("@n",x.Name.Trim()); c.Parameters.AddWithValue("@c",x.CategoryId); c.Parameters.AddWithValue("@u",uid); c.Parameters.AddWithValue("@d",(object?)x.Description??DBNull.Value); c.Parameters.AddWithValue("@cond",(object?)x.Condition??DBNull.Value); c.Parameters.AddWithValue("@img",(object?)x.ImageUrl??DBNull.Value); c.Parameters.AddWithValue("@addr",(object?)x.DeliveryAddress??DBNull.Value); c.Parameters.AddWithValue("@phone",(object?)x.Phone??DBNull.Value); }
 }
+
